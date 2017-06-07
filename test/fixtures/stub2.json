@@ -1,0 +1,13 @@
+[
+    {
+        "method": "POST",
+        "url": "/url2",
+        "sceanarios": {
+            "default": {
+                "responses": {
+                    "body": { "boo": "baz" }
+                }
+            }
+        }
+    }
+]
