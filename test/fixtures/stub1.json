@@ -1,0 +1,13 @@
+[
+    {
+        "method": "GET",
+        "url": "/url1",
+        "sceanarios": {
+            "default": {
+                "responses": {
+                    "body": { "foo": "bar" }
+                }
+            }
+        }
+    }
+]

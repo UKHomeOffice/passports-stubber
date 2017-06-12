@@ -1,0 +1,9 @@
+ {
+    "port": 1234,
+    "mount": "/blah",
+    "scenario": "test",
+    "stubs": [
+        "file3",
+        "file4"
+    ]
+ }
