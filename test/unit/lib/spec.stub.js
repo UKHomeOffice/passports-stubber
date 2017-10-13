@@ -200,13 +200,21 @@ describe('Stub class', () => {
             };
             mocks.express = sinon.stub().returns(mocks.app);
 
+            mocks.jsonParser = sinon.stub();
+            mocks.bodyParser = {
+                json: sinon.stub().returns(mocks.jsonParser)
+            };
+
             mocks.Stub = proxyquire('../../lib/stub', {
-                'express': mocks.express
+                'express': mocks.express,
+                'body-parser': mocks.bodyParser
             });
 
-            sinon.stub(mocks.Stub.prototype, 'handler');
+            mocks.handlerFunction = sinon.stub();
+            sinon.stub(mocks.Stub.prototype, 'handler').returns(mocks.handlerFunction);
 
             stub = new mocks.Stub(options);
+
         });
 
         afterEach(() => {
@@ -223,13 +231,15 @@ describe('Stub class', () => {
 
             mocks.app.get.should.have.been.calledWithExactly(
                 '/get/url',
-                sinon.match.function
+                mocks.jsonParser,
+                mocks.handlerFunction
             );
             mocks.Stub.prototype.handler.should.have.been.calledWithExactly(stub.services[0]);
 
             mocks.app.post.should.have.been.calledWithExactly(
                 '/post/url',
-                sinon.match.function
+                mocks.jsonParser,
+                mocks.handlerFunction
             );
             mocks.Stub.prototype.handler.should.have.been.calledWithExactly(stub.services[1]);
         });
