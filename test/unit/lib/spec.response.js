@@ -80,6 +80,14 @@ describe('Response class', () =>  {
             res.set.should.have.been.calledWithExactly('Content-Type', 'text/html');
             res.send.should.have.been.calledWithExactly(valueResult);
         });
+
+        it('should not send any data if response is res, indicating that the response has already been dealt with', () => {
+            Base.prototype.value.returns(res);
+            response.send(options, req, res);
+            res.set.should.not.have.been.called;
+            res.send.should.not.have.been.called;
+            res.json.should.not.have.been.called;
+        });
     });
 
     describe('handler', () =>  {
