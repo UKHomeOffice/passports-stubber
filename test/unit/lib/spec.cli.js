@@ -162,7 +162,7 @@ describe('cli', () =>  {
             options = {
                 port: 1234,
                 mount: '/base',
-                stubs: [ 'stub1', 'stub2' ]
+                stubs: [ 'stub1', 'stub2', 'stub3' ]
             };
         });
 
@@ -220,8 +220,8 @@ describe('cli', () =>  {
         it('should add each stub middleware to the express router', () => {
             cli.runServer(options);
 
-            mocks.stubInstance.middleware.should.have.been.calledTwice;
-            mocks.routerInstance.use.should.have.been.calledTwice;
+            mocks.stubInstance.middleware.should.have.been.calledThrice;
+            mocks.routerInstance.use.should.have.been.calledThrice;
             mocks.routerInstance.use.should.have.been.calledWithExactly(mocks.stubMiddlewareFunction);
         });
 

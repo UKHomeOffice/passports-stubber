@@ -1,0 +1,13 @@
+[
+    {
+        "method": "PATCH",
+        "url": "/url3",
+        "sceanarios": {
+            "default": {
+                "responses": {
+                    "body": { "boo": "baz" }
+                }
+            }
+        }
+    }
+]
