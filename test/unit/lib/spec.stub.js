@@ -196,7 +196,8 @@ describe('Stub class', () => {
             mocks.app = {
                 use: sinon.stub(),
                 get: sinon.stub(),
-                post: sinon.stub()
+                post: sinon.stub(),
+                patch: sinon.stub()
             };
             mocks.express = sinon.stub().returns(mocks.app);
 
@@ -224,7 +225,8 @@ describe('Stub class', () => {
         it('should mount the handler on the method and url for each service', () => {
             stub.services = [
                 { options: { method: 'GET', url: '/get/url' }},
-                { options: { method: 'POST', url: '/post/url' }}
+                { options: { method: 'POST', url: '/post/url' }},
+                { options: { method: 'PATCH', url: '/patch/url' }}
             ];
 
             stub.middleware();
@@ -242,6 +244,13 @@ describe('Stub class', () => {
                 mocks.handlerFunction
             );
             mocks.Stub.prototype.handler.should.have.been.calledWithExactly(stub.services[1]);
+
+            mocks.app.patch.should.have.been.calledWithExactly(
+                '/patch/url',
+                mocks.jsonParser,
+                mocks.handlerFunction
+            );
+            mocks.Stub.prototype.handler.should.have.been.calledWithExactly(stub.services[2]);
         });
 
         it('should use the error handler', () => {
